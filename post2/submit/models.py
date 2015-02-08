@@ -17,5 +17,5 @@ class sender(models.Model):
 	sender_name = models.CharField(max_length=200)
 	sender_memo = models.CharField(max_length=500)
 	sender_photo = models.ImageField(upload_to='photos')
-	sender_movie = models.URLField(max_length=200)
+	sender_movie = models.FileField(upload_to='movies') # AEttinger 7.2.15 5:30 pm - changed from URL to file field
 
