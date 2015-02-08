@@ -10,52 +10,13 @@ import urllib
 import urllib2
 import json
 
-path_to_image = "landscape.jpg"
+path_to_input_image = "landscape.jpg"
+uniqueID = "user0001"
 desired_url = "http://www.youtube.com"
-
-##################
-#### Get a token
-url = 'https://www.livepaperapi.com/auth/v1/token'
-
-params = {
-  'Authorization': 'Basic dW40bzFna2VidXdyMDF1ajE0a3Qzd2p5eTYwMGVqaTg6dGo1SmxPMkZvVU01VTd1NTQ3Ujl0UnlLc3k2bDk2cTI=',
-  'Content-Type': 'application/x-www-form-urlencoded',
-  'Accept': 'application/json',
-}
-
-data = "grant_type=client_credentials&scope=default"
-req = urllib2.Request(url, data, params)
-f = urllib2.urlopen(req)
-response = f.read()
-# f.close()
-# print f
-
-response = json.loads(response)
-
-################
-#### Make a Payoff
-url = 'https://www.livepaperapi.com/api/v1/payoffs'
-
-params = {
-  'Authorization': str('Bearer ' + response['accessToken']),
-  'Content-Type': 'application/json',
-  'Accept': 'application/json',
-}
-
-
-data = json.dumps({'payoff': {"URL":desired_url, "name":"your youtube video"}})
-# '["foo", {"payoff": ["baz", null, 1.0, 2]}]'
-# data = ""
-# print params
-# print data
-payoff_request = urllib2.Request(url, data, params)
-payoff_response = urllib2.urlopen(payoff_request).read()
-payoff_response = json.loads(payoff_response)
-# print(payoff_response)
-payoff_ID = (payoff_response["payoff"]["id"])
 
 '''
 For each uploaded image:
+- Get an authentication token
 - Make a Trigger ID
 - Make a Payoff ID
 - Link the Trigger and Payoff IDs
@@ -63,106 +24,138 @@ For each uploaded image:
 
 '''
 
+##################
+#### Get a token
+def get_access_token():
+	url = 'https://www.livepaperapi.com/auth/v1/token'
+	params = {
+	  'Authorization': 'Basic dW40bzFna2VidXdyMDF1ajE0a3Qzd2p5eTYwMGVqaTg6dGo1SmxPMkZvVU01VTd1NTQ3Ujl0UnlLc3k2bDk2cTI=',
+	  'Content-Type': 'application/x-www-form-urlencoded',
+	  'Accept': 'application/json',
+	}
+
+	data = "grant_type=client_credentials&scope=default"
+	req = urllib2.Request(url, data, params)
+	f = urllib2.urlopen(req)
+	response = f.read()
+	response = json.loads(response)
+	return(response['accessToken'])
+
+################
+#### Make a Payoff
+def define_target_URL(access_token, desired_url):
+	url = 'https://www.livepaperapi.com/api/v1/payoffs'
+
+	params = {
+	  'Authorization': str('Bearer ' + access_token),
+	  'Content-Type': 'application/json',
+	  'Accept': 'application/json',
+	}
+
+	data = json.dumps({'payoff': {"URL":desired_url, "name":"your youtube video"}})
+	payoff_request = urllib2.Request(url, data, params)
+	payoff_response = urllib2.urlopen(payoff_request).read()
+	payoff_response = json.loads(payoff_response)
+	payoff_ID = (payoff_response["payoff"]["id"])
+	return payoff_ID
 
 ################
 #### Make a Trigger
 
-url = 'https://www.livepaperapi.com/api/v1/triggers'
+def set_up_trigger(access_token, uniqueID):
+	'''
+	This sets up the data to be encoded in an image to be retrieved later with get_watermarked_image().
+	
+	INPUT: uniqueID(str): Should be a unique name for the trigger encoded in the image.
+	'''
+	url = 'https://www.livepaperapi.com/api/v1/triggers'
 
-params = {
-  'Authorization': str('Bearer ' + response['accessToken']),
-  'Content-Type': 'application/json',
-  'Accept': 'application/json',
-}
+	params = {
+	  'Authorization': str('Bearer ' + access_token),
+	  'Content-Type': 'application/json',
+	  'Accept': 'application/json',
+	}
+	startDate = str(datetime.datetime.now().isoformat()[0:-3] + "+0800")
+	endDate = datetime.datetime.now() + datetime.timedelta(days = 365)
+	endDate = str(endDate.isoformat()[0:-3] + "+0800")
 
-data = json.dumps({'trigger': {"URL":"http://www.youtube.com", "name":"a picture of me on the beach", "type":"watermark"}})
-trigger_request = urllib2.Request(url, data, params)
-trigger_response = urllib2.urlopen(trigger_request).read()
-trigger_response = json.loads(trigger_response)
-# print(trigger_response)
+	data = json.dumps({'trigger': {"name": uniqueID, "type":"watermark", "startDate": startDate, "endDate": endDate}})
+	trigger_request = urllib2.Request(url, data, params)
+	trigger_response = urllib2.urlopen(trigger_request).read()
+	trigger_response = json.loads(trigger_response)
 
-#YOU MIGHT NEED THIS!
-trigger_URL = (trigger_response["trigger"]["link"][0]["href"])
-trigger_ID = (trigger_response["trigger"]["id"])
+	#These are referred to when making the link and when watermarking an image
+	trigger_URL = (trigger_response["trigger"]["link"][0]["href"])
+	trigger_ID = (trigger_response["trigger"]["id"])
+	return(trigger_URL, trigger_ID)
 
 ################
 #### Upload a file
+def send_file_to_HP(access_token, path_to_input_image):
+	url = 'https://storage.livepaperapi.com/objects/v1/files'
 
-url = 'https://storage.livepaperapi.com/objects/v1/files'
+	params = {
+	  'Authorization': str('Bearer ' + access_token),
+	  'Content-Type': 'image/jpeg',
+	  'Accept': 'application/json',
+	}
 
-params = {
-  'Authorization': str('Bearer ' + response['accessToken']),
-  'Content-Type': 'image/jpeg',
-  'Accept': 'application/json',
-}
-
-data = open(path_to_image, "rb").read()
-
-# print data
-
-image_post = urllib2.Request(url, data, params)
-image_response = urllib2.urlopen(image_post).info().headers
-#image_response=json.loads(image_response)
-image_URL = image_response[-4][10:-2]
-#image_response = json.loads(image_response)
-print(image_response)
+	data = open(path_to_input_image, "rb").read()
+	image_post = urllib2.Request(url, data, params)
+	image_response = urllib2.urlopen(image_post).info().headers
+	image_URL = image_response[-4][10:-2]
+	return(image_URL)
 
 ################
 #### Get that file? If you want, not necessary?
+def download_original_file_from_HP(access_token, image_URL, directoryprefix= ""):
+	url = image_URL
+	# Can uncomment these two lines to specify a size to download
+	#query = urllib.urlencode({'width': '100'})
+	#url = url+"?"+query
 
-url = image_url
-#query = urllib.urlencode({'width': '100'})
-print(response['accessToken'])
+	params = {	
+	  'Authorization': str('Bearer ' + access_token),
+	  'Accept': 'image/jpeg',
+	}
 
-#url = url+"?"+query
-params = {	
-  'Authorization': str('Bearer ' + response['accessToken']),
-  'Accept': 'image/jpeg',
-}
-
-image_get_request = urllib2.Request(url)
-image_get_request.headers = params
-image_get_item = urllib2.urlopen(image_get_request)
-f = open('00000001.jpg','wb')
-f.write(image_get_item.read())
-f.close()
-
+	image_get_request = urllib2.Request(url)
+	image_get_request.headers = params
+	image_get_item = urllib2.urlopen(image_get_request)
+	f = open(directoryprefix+"original_"+path_to_input_image,'wb')
+	f.write(image_get_item.read())
+	f.close()
 
 ################
 #### Make a link between a trigger and a payoff
+def link_trigger_to_URL(access_token, trigger_ID, payoff_ID):
+	url = 'https://www.livepaperapi.com/api/v1/links'
 
-url = 'https://www.livepaperapi.com/api/v1/links'
+	params = {
+	  'Authorization': str('Bearer ' + access_token),
+	  'Content-Type': 'application/json',
+	  'Accept': 'application/json',
+	}
 
-params = {
-  'Authorization': str('Bearer ' + response['accessToken']),
-  'Content-Type': 'application/json',
-  'Accept': 'application/json',
-}
-
-data = json.dumps({'link': {"payoffId":payoff_ID, "name":"picture2video", "triggerId":trigger_ID}})
-trigger_request = urllib2.Request(url, data, params)
-trigger_response = urllib2.urlopen(trigger_request).read()
-trigger_response = json.loads(trigger_response)
-
+	data = json.dumps({'link': {"payoffId":payoff_ID, "name":"picture2video", "triggerId":trigger_ID}})
+	link_request = urllib2.Request(url, data, params)
+	urllib2.urlopen(link_request)
 
 ################
 #### Download the watermarked file
-url = trigger_URL
-query = urllib.urlencode({'imageURL': image_URL, 'resolution':'75', 'strength':'10'})
-#print(response['accessToken'])
+def download_watermarked_image(access_token, image_URL, trigger_URL, directoryprefix= ""):
+	url = trigger_URL
+	query = urllib.urlencode({'access_token': access_token, 'imageURL': image_URL, 'resolution':'75', 'strength':'10'})
+	url = url+"?"+query
 
-url = url+"?"+query
+	params = {
+	  'Authorization': str('Bearer ' + access_token),
+	  'Accept': 'image/jpg',
+	}
 
-params = {
-  'Authorization': str('Bearer ' + response['accessToken']),
-  'Content-Type': 'application/json',
-  'Accept': 'image/jpg',
-}
-
-wmimage_get_request = urllib2.Request(url)
-wmimage_get_request.headers = params
-wmimage_get_item = urllib2.urlopen(wmimage_get_request)
-f = open('wm00000001.jpg','wb')
-f.write(wmimage_get_item.read())
-f.close()
-
+	wmimage_get_request = urllib2.Request(url)
+	wmimage_get_request.headers = params
+	wmimage_get_item = urllib2.urlopen(wmimage_get_request)
+	f = open(str(directoryprefix+"watermarked_" + path_to_input_image),'wb')
+	f.write(wmimage_get_item.read())
+	f.close()
