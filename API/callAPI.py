@@ -9,7 +9,7 @@ import django
 import urllib
 import urllib2
 import json
-
+import datetime
 path_to_input_image = "landscape.jpg"
 uniqueID = "user0001"
 desired_url = "http://www.youtube.com"
@@ -23,6 +23,7 @@ For each uploaded image:
 - Upload an image associated with the Trigger
 
 '''
+
 
 ##################
 #### Get a token
@@ -159,3 +160,21 @@ def download_watermarked_image(access_token, image_URL, trigger_URL, directorypr
 	f = open(str(directoryprefix+"watermarked_" + path_to_input_image),'wb')
 	f.write(wmimage_get_item.read())
 	f.close()
+	return wmimage_get_item
+
+
+class image_video_pair:
+	'''
+	Contains a watermarked image from a piece of input
+	'''
+	def __init__(self, path_to_input_image, path_to_input_video, desired_url):
+		self.picture = path_to_input_image
+		self.video = path_to_input_video
+		access_token = get_access_token()
+		payoff_ID = define_target_URL(access_token, desired_url)
+		trigger_URL, trigger_ID = set_up_trigger(access_token, uniqueID)
+		image_URL = send_file_to_HP(access_token, path_to_input_image)
+		link_trigger_to_URL(access_token, trigger_ID, payoff_ID)
+		watermarked = download_watermarked_image(access_token, image_URL, trigger_URL, directoryprefix= "")
+		self.watermarked = watermarked
+
