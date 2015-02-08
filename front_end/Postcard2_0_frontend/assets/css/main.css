@@ -6,7 +6,7 @@
 	#head .tagline { color:rgba(153,0,51,0.9); margin-bottom:25px; }
 		#head .tagline a { color:#333333; } 
 	#head .btn { margin-bottom:10px;}
-	#head .btn-default { text-shadow: none; background:transparent; color:rgba(153,0,51,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); background: transparent; }
+	#head .btn-default { text-shadow: none; background:transparent; color:rgba(153,0,51,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); background: transparent; }
 		#head .btn-default:hover,
 		#head .btn-default:focus { color:rgba(153,0,51,.8); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.8); -moz-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.8); box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.8); background: transparent; }
 		#head .btn-default:active, 
@@ -15,6 +15,15 @@
 @media (max-width: 767px) {
 	#head { min-height:420px; padding-top:160px; }
 	#head .lead { font-size: 34px; }
+}
+
+input.simplebox,input.simplebox:focus {
+  border:none;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -moz-transition: none;
+  -webkit-transition: none;
 }
 
 

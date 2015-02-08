@@ -69,9 +69,9 @@
 
 .btn { padding: 10px 40px; font-weight: bold; border:0 none; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }
 .btn-lg { padding: 15px 65px; font-size: 14px; font-weight:bold; }
-.btn-default { text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); }
+.btn-default { text-shadow: none; background:transparent; color:rgba(153,0,51,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); }
 	.btn-default:hover,
-	.btn-default:focus { color:rgba(50,50,50,.8); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.8); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.8); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.8); background: transparent; }
+	.btn-default:focus { color:rgba(153,0,51,.8); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.8); -moz-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.8); box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.8); background: transparent; }
 	.btn-default:active,
 	.btn-default.active { color:#333; -webkit-box-shadow:inset 0px 0px 0px 3px #333; -moz-box-shadow:inset 0px 0px 0px 3px #333; box-shadow:inset 0px 0px 0px 3px #333; background: transparent; }
 
@@ -80,6 +80,7 @@
 	.btn-action:hover,
 	.btn-action:focus { color:#fff; background: #990033; }
 	.btn-action:active {	background: #990033; }
+
 
 .btn-file {
   position: relative;
@@ -102,6 +103,10 @@
 input[readonly] {
   background-color: white !important;
   cursor: text !important;
+  box-shadow:none !important;
+  outline: none;
+  border:1px solid #ccc !important;
+
 }
 
 
