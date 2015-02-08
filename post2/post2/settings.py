@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')] # added 9:40 pm
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')] 
+# added 9:40 pm
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
@@ -28,7 +29,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+# AEttinger 7.2.15 - added this for the submit module handling the recipient and sender informations
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -36,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'submit', # AEttinger 7.2.15 - added this for the submit module handling the recipient and sender informations
+    'submit', 
 )
 
 MIDDLEWARE_CLASSES = (

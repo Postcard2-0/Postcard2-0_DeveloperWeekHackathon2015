@@ -1,0 +1,9 @@
+{% if last_recipient %}
+    <ul>
+    {% for question in latest_question_list %}
+        <li><a href="/suber/{{ question.recipient_name }}/">{{ question.recipient_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}

@@ -3,7 +3,6 @@ from django.shortcuts import render
 # AEttinger 7.2.15 6:20 pm - add to render database context
 from submit.models import recipient
 
-
 # AEttinger 7.2.15 - added to view http content. 6:20 pm commented out
 from django.http import HttpResponse
 
@@ -16,15 +15,8 @@ from django.template import loader, Context
 
 def index(request):
 	last_recipient = recipient.objects.all()
-	context = {'last_recipient:' : last_recipient}
-
-	for r in last_recipient:
-		print(r.recipient_name)
-
-	print(type(last_recipient))
-
+	context = { 'last_recipient:' : last_recipient }
 	return render(request, 'submit/index.html', context)
-
 
 # for testing:
 def hello(request):

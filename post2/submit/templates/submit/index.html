@@ -11,16 +11,16 @@
 	</tr>
 	{% for recipient in last_recipient %}
 	<tr>
-		<td>{{recipient.id}}</td>
-		<td>{{recipient.recipient_name}}</td>
-		<td>{{recipient.recipient_street_text}}</td>
-		<td>{{recipient.recipient_street_nr}}</td>
-		<td>{{recipient.recipient_city_text}}</td>
-		<td>{{recipient.recipient_city_zip}}</td>
-		<td>{{recipient.recipient_country_text}}</td>
+		<td>{{ recipient.id }}</td>
+		<td>{{ recipient.recipient_name }}</td>
+		<td>{{ recipient.recipient_street_text }}</td>
+		<td>{{ recipient.recipient_street_nr }}</td>
+		<td>{{ recipient.recipient_city_text }}</td>
+		<td>{{ recipient.recipient_city_zip }}</td>
+		<td>{{ recipient.recipient_country_text }}</td>
 	</tr>
 	{% endfor %}	
 </table>
 {% else %}
-<p>No recipient data available.</p>
+<p> No recipient data available. </p>
 {% endif %}
