@@ -1,0 +1,28 @@
+
+{% if last_recipient %}
+<table>
+        <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Street Name</th>
+                <th>Street Nr</th>
+                <th>City</th>
+                <th>ZIP code</th>
+                <th>Country</th>
+        </tr>
+        {% for question in last_recipient %}
+        <tr>
+                <td>{{ question.id }}</td>
+                <td>{{ question.name }}</td>
+                <td>{{ question.street_text }}</td>
+                <td>{{ question.street_nr }}</td>
+                <td>{{ question.city_text }}</td>
+                <td>{{ question.city_zip }}</td>
+                <td>{{ question.country_text }}</td>
+        </tr>
+        {% endfor %}
+</table>
+{% else %}
+<p>No recipient data available.</p>
+{% endif %}
+
