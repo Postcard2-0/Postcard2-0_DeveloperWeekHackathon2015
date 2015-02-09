@@ -8,14 +8,15 @@
 	
 	<title>Postcard 2.0 The Future is here</title>
 
-	<link rel="shortcut icon" href="Postcard2_0_frontend/assets/images/gt_favicon.png">
+	<link rel="shortcut icon" href="{{ url_for('static', filename = 'assets/images/gt_favicon.png') }}">
+	
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
-	<link rel="stylesheet" href="Postcard2_0_frontend/assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="Postcard2_0_frontend/assets/css/font-awesome.min.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/bootstrap.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/font-awesome.min.css') }}">
 
 	<!-- Custom styles for our template -->
-	<link rel="stylesheet" href="Postcard2_0_frontend/assets/css/bootstrap-theme.css" media="screen" >
-	<link rel="stylesheet" href="Postcard2_0_frontend/assets/css/main.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename = 'assets/css/bootstrap-theme.css') }}" media="screen" >
+	<link rel="stylesheet" href="{{ url_for('static', filename = 'assets/css/main.css') }}">
 	<!-- The header image is in the main.css file!!!! substituted bg_header.jpg for postcardimage_mod.jpg!-->
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -55,28 +56,30 @@
 	<!-- /.navbar -->
 
 	<!-- Header -->
+	<form role="form" action="{{ url_for('submit') }}" method="post" enctype="multipart/form-data">
+	
 	<header id="head">
 		<div class="container">
 			<div class="row">
 				<h1 class="lead">POSTCARD 2.0</h1>
 				<p class="tagline">The future is here <a href="http://www.gettemplate.com/?utm_source=progressus&amp;utm_medium=template&amp;utm_campaign=progressus"></a></p>
-				<!-- ADD FORM HERE!!! -->
 				
-				<!-- <p><a class="btn btn-default btn-lg" role="button">PHOTO</a> <a class="btn btn-action btn-lg" role="submit">UPLOAD NOW</a></p>-->
+				
 				<p>
 				<span class="btn btn-action btn-file">
- 				Pick Your Photo! <input type="file">
+					<label for="photo">Pick Your Photo!</label>
+					<input type="file" name="photo" />
 				</span>
 				</p>
 				<p>
 				<span class="btn btn-action btn-file">
- 				Pick Your Video! <input type="file">
+ 				Pick Your Video! <input type="file" name="movie">
 				</span>
 				</p>
 			</div>
 		</div>
 	</header>
-	<!-- /Header -->
+
 
 	<!-- Intro -->
 	<div class="container text-center">
@@ -88,27 +91,39 @@
 		<p>For full experience download LinkReader for <a style='color:#990033' href='https://play.google.com/store/apps/details?id=com.hp.link&hl=en'>Android</a> or <a style='color:#990033' href='https://itunes.apple.com/us/app/linkreader/id716209670?mt=8'>iOS</a> !
 		</p>
 		<p>
-		<form action="../submit_new/" role="form" method="post">
-			{% csrf_token %}
 			<div class="form-group">
-			<label for="RecName"></label>
-			<input type="text" class="form-control" name="SenderName" placeholder="Enter sender name" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
-			<input type="text" class="form-control" name="SenderMemo" placeholder="Enter your short message" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
-			</div>
+			
+				<label for="SenderName">Sender Name</label>
+				<input type="text" class="form-control" name="SenderName" placeholder="Enter sender name" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)" />
+			
+				<label for="SenderMemo">Memo</label>
+				<input type="text" class="form-control" name="SenderMemo" placeholder="Enter your short message" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)" />
+			
+		<!--	</div>
 		
 			<div class="form-group">
-			<label for="RecName"></label>
-			<input type="text" class="form-control" name="RecName" placeholder="Enter recipient name" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
-			<input type="text" class="form-control" name="Street" placeholder="Enter recipient street" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
-			<input type="text" class="form-control" name="StreetNr" placeholder="Enter recipient street number" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
-			<input type="text" class="form-control" name="City" placeholder="Enter recipient city" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
-			<input type="text" class="form-control" name="Country" placeholder="Enter recipient country" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
+			
+				<label for="RecName">Recipient Name</label>
+				<input type="text" class="form-control" name="RecName" placeholder="Enter recipient name" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
+			
+				<label for="Street">Recipient Street</label>
+				<input type="text" class="form-control" name="Street" placeholder="Enter recipient street" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
+			
+				<label for="StreetNr">Recipient Street Number</label>
+				<input type="text" class="form-control" name="StreetNr" placeholder="Enter recipient street number" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
+			
+				<label for="City">Recipient City</label>
+				<input type="text" class="form-control" name="City" placeholder="Enter recipient city" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
+			
+				<label for="Country">Recipient Country</label>
+				<input type="text" class="form-control" name="Country" placeholder="Enter recipient country" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
+			-->
 			</div>
-
-			<button type="submit" class="btn btn-default">Prreview</button>
+		</p>
+			<button type="submit" class="btn btn-default">Send to print</button>
 	
 		</form>
-		</p>
+		
 
 	</div>
 	<!-- /Intro-->
@@ -214,8 +229,8 @@
 	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<script src="assets/js/headroom.min.js"></script>
-	<script src="assets/js/jQuery.headroom.min.js"></script>
-	<script src="assets/js/template.js"></script>
+	<script src="{{ url_for('static', filename = 'assets/js/headroom.min.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'assets/js/jQuery.headroom.min.js') }}"></script>
+	<script src="{{ url_for('static', filename = 'assets/js/template.js') }}"></script>
 </body>
 </html>
