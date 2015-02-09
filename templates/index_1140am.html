@@ -8,14 +8,15 @@
 	
 	<title>Postcard 2.0 The Future is here</title>
 
-	<link rel="shortcut icon" href="Postcard2_0_frontend/assets/images/gt_favicon.png">
+	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
+	
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
-	<link rel="stylesheet" href="Postcard2_0_frontend/assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="Postcard2_0_frontend/assets/css/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
 
 	<!-- Custom styles for our template -->
-	<link rel="stylesheet" href="Postcard2_0_frontend/assets/css/bootstrap-theme.css" media="screen" >
-	<link rel="stylesheet" href="Postcard2_0_frontend/assets/css/main.css">
+	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
+	<link rel="stylesheet" href="assets/css/main.css">
 	<!-- The header image is in the main.css file!!!! substituted bg_header.jpg for postcardimage_mod.jpg!-->
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -88,24 +89,23 @@
 		<p>For full experience download LinkReader for <a style='color:#990033' href='https://play.google.com/store/apps/details?id=com.hp.link&hl=en'>Android</a> or <a style='color:#990033' href='https://itunes.apple.com/us/app/linkreader/id716209670?mt=8'>iOS</a> !
 		</p>
 		<p>
-		<form action="../submit_new/" role="form" method="post">
-			{% csrf_token %}
-			<div class="form-group">
+		<form role="form">
+			 <div class="form-group">
 			<label for="RecName"></label>
-			<input type="text" class="form-control" name="SenderName" placeholder="Enter sender name" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
-			<input type="text" class="form-control" name="SenderMemo" placeholder="Enter your short message" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
+			<input type="RecName" class="form-control" id="SenderName" placeholder="Enter sender name" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
+			<input type="RecName" class="form-control" id="SenderMemo" placeholder="Enter your short message" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
 			</div>
 		
 			<div class="form-group">
 			<label for="RecName"></label>
-			<input type="text" class="form-control" name="RecName" placeholder="Enter recipient name" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
-			<input type="text" class="form-control" name="Street" placeholder="Enter recipient street" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
-			<input type="text" class="form-control" name="StreetNr" placeholder="Enter recipient street number" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
-			<input type="text" class="form-control" name="City" placeholder="Enter recipient city" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
-			<input type="text" class="form-control" name="Country" placeholder="Enter recipient country" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
+			<input type="RecName" class="form-control" id="RecName" placeholder="Enter recipient name" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
+			<input type="RecName" class="form-control" id="Street" placeholder="Enter recipient street" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
+			<input type="RecName" class="form-control" id="StreetNr" placeholder="Enter recipient street number" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
+			<input type="RecName" class="form-control" id="City" placeholder="Enter recipient city" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
+			<input type="RecName" class="form-control" id="Country" placeholder="Enter recipient country" style="text-shadow: none; background:transparent; color:rgba(50,50,50,.5); -webkit-box-shadow:inset 0px 0px 0px 3px rgba(153,0,51,.5); -moz-box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5); box-shadow:inset 0px 0px 0px 3px rgba(50,50,50,.5)">
 			</div>
 
-			<button type="submit" class="btn btn-default">Prreview</button>
+			<button type="submit" class="btn btn-default">Send message</button>
 	
 		</form>
 		</p>
